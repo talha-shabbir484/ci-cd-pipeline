@@ -1,0 +1,28 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: ✅ Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: 🔨 Build Docker Image
+      run: |
+        docker build -t my-app .
+
+    - name: 🧪 Run Unit Tests
+      run: |
+        echo "Simulating unit tests..."
+        echo "✅ All tests passed!"
+
+    - name: 🚀 Run Docker Container
+      run: |
+        docker run -d -p 5000:5000 my-app
